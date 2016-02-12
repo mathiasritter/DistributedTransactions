@@ -38,6 +38,10 @@ public class Message {
         return content;
     }
 
+    public String getContentAsString() {
+        return new String(this.getContent(), StandardCharsets.UTF_8);
+    }
+
     public MessageType getType() {
         return type;
     }

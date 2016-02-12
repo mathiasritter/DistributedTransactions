@@ -11,8 +11,7 @@ import java.util.Map;
  */
 public enum MessageType {
 
-    ENCRYPTED_SYM_KEY('S'), ENCRYPTED_MESSAGE('E'), STORED_PUB_KEY('P'),
-    CLIENT_CONNECTED('D'), CLOSE_CONNECTION('C'), SERVICE_READY('R');
+    CLIENT_CONNECTED('C'), NONE('N');
 
 
     private final char value;

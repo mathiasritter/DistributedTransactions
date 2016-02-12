@@ -33,7 +33,7 @@ public class ConsoleReader implements Reader {
                         processor.exitApplication();
                         break;
                     }
-                    processor.process(line);
+                    processor.processInput(line);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

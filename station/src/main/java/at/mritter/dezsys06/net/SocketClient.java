@@ -27,8 +27,8 @@ public class SocketClient extends SocketBase {
      * @param host The host of the server
      * @param port The port of the server
      */
-    public SocketClient(MessageCallback messageCallback, String host, int port) {
-        super(messageCallback);
+    public SocketClient(String host, int port) {
+        super();
         this.host = host;
         this.port = port;
     }
@@ -40,39 +40,28 @@ public class SocketClient extends SocketBase {
     public void connect() {
         try {
             // connect to server socket, get streams to read/write
-            this.socket = new Socket(host, port);
-            super.setIn(new DataInputStream(this.socket.getInputStream()));
-            super.setOut(new DataOutputStream(this.socket.getOutputStream()));
+            Socket socket = new Socket(host, port);
+
+            // set io streams
+            SocketReaderWriter socketReaderWriter = new SocketReaderWriter(
+                    super.getMessageCallbacks(),
+                    new DataInputStream(socket.getInputStream()),
+                    new DataOutputStream(socket.getOutputStream())
+            );
+
+            super.addSocketWriter(socketReaderWriter);
 
             // start listening for incoming messages
-            new Thread(this).start();
+            new Thread(socketReaderWriter).start();
 
             // send initial message
-            Message message = new Message("I am connected and ready to receive messages", MessageType.CLIENT_CONNECTED);
-            super.write(message);
+            Message message = new Message("New client successfully connected", MessageType.CLIENT_CONNECTED);
+            socketReaderWriter.write(message);
         } catch (Exception e) {
             LOG.error(e.getMessage());
             System.exit(-1);
         }
 
     }
-
-    /**
-     * @see SocketBase#disconnect()
-     */
-    @Override
-    public void disconnect() {
-        super.disconnect();
-        try {
-            socket.close();
-        } catch (IOException e) {
-            LOG.error(e.getMessage());
-            System.exit(-1);
-        }
-    }
-
-
-
-
 
 }

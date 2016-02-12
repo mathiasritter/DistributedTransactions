@@ -13,7 +13,7 @@ import java.net.Socket;
  * @author Mathias Ritter
  * @version 1.0
  */
-public class SocketClient extends NetworkingBase {
+public class SocketClient extends SocketBase {
 
     private Socket socket;
 
@@ -34,7 +34,7 @@ public class SocketClient extends NetworkingBase {
     }
 
     /**
-     * @see NetworkingBase#connect()
+     * @see SocketBase#connect()
      */
     @Override
     public void connect() {
@@ -58,7 +58,7 @@ public class SocketClient extends NetworkingBase {
     }
 
     /**
-     * @see NetworkingBase#disconnect()
+     * @see SocketBase#disconnect()
      */
     @Override
     public void disconnect() {

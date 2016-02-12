@@ -13,9 +13,9 @@ import java.io.IOException;
  * @author Mathias Ritter
  * @version 1.0
  */
-public abstract class NetworkingBase implements Runnable {
+public abstract class SocketBase implements Runnable {
 
-    public static final Logger LOG = LogManager.getLogger(NetworkingBase.class);
+    public static final Logger LOG = LogManager.getLogger(SocketBase.class);
 
     private DataInputStream in;
     private DataOutputStream out;
@@ -30,7 +30,7 @@ public abstract class NetworkingBase implements Runnable {
      *
      * @param messageCallback service or client
      */
-    public NetworkingBase(MessageCallback messageCallback) {
+    public SocketBase(MessageCallback messageCallback) {
         this.messageCallback = messageCallback;
     }
 

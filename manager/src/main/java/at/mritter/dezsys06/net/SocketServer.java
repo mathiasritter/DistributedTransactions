@@ -18,7 +18,7 @@ import java.net.Socket;
  * @author Mathias Ritter
  * @version 1.0
  */
-public class SocketServer extends NetworkingBase {
+public class SocketServer extends SocketBase {
 
     public static final Logger LOG = LogManager.getLogger(SocketServer.class);
 
@@ -41,7 +41,7 @@ public class SocketServer extends NetworkingBase {
     }
 
     /**
-     * @see NetworkingBase#connect()
+     * @see SocketBase#connect()
      */
     @Override
     public void connect() {
@@ -63,7 +63,7 @@ public class SocketServer extends NetworkingBase {
     }
 
     /**
-     * @see NetworkingBase#disconnect()
+     * @see SocketBase#disconnect()
      */
     @Override
     public void disconnect() {

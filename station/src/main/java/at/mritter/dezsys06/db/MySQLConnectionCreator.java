@@ -17,6 +17,7 @@ import java.sql.SQLException;
 public class MySQLConnectionCreator extends DBConnectionCreator {
 
     private static Logger logger = LogManager.getLogger(MySQLConnectionCreator.class.getName());
+    private Connection connection;
 
     /**
      * Im Konstruktor wird der Treiber fuer JDBC geladen
@@ -34,17 +35,25 @@ public class MySQLConnectionCreator extends DBConnectionCreator {
     }
 
     /**
-     * @see DBConnectionCreator#createConnection()
+     * @see DBConnectionCreator#getConnection()
      */
-    public Connection createConnection() {
+    public Connection getConnection() {
 
-        Connection out = null;
+        if (connection == null)
+            this.createConnection();
+
+        return this.connection;
+    }
+
+    private void createConnection() {
+
 
         //Connection-String speziell fuer MySQL
         String connectionString = "jdbc:mysql://" + super.getHost() + "/" + super.getDatabase();
         try {
             //Neue Connection mittels Driver-Manager initialisieren
-            out = DriverManager.getConnection(connectionString, super.getUser(), super.getPassword());
+            this.connection = DriverManager.getConnection(connectionString, super.getUser(), super.getPassword());
+            this.connection.setAutoCommit(false);
         } catch (SQLException e) {
             //Bei nicht erfolgreichem Verbindungsaufbau Fehler ausgeben und Programm verlasen
             logger.error("Verbindung zu DB fehlgeschlagen. Angegebene Daten:");
@@ -55,6 +64,5 @@ public class MySQLConnectionCreator extends DBConnectionCreator {
             System.exit(-1);
         }
 
-        return out;
     }
 }

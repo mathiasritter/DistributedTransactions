@@ -64,5 +64,13 @@ public abstract class SocketBase {
         this.writers.add(writer);
     }
 
+    public void removeSocketWriter(SocketReaderWriter writer) {
+        this.writers.remove(writer);
+    }
+
+    public int getSocketWriterCount() {
+        return this.writers.size();
+    }
+
 
 }

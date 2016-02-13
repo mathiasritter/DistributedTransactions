@@ -26,7 +26,7 @@ public abstract class DBConnectionCreator {
         password = "";
     }
 
-    public abstract Connection createConnection();
+    public abstract Connection getConnection();
 
     public String getHost() {
         return host;

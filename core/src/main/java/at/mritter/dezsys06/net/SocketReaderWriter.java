@@ -13,14 +13,14 @@ public class SocketReaderWriter implements Runnable {
 
     private DataOutputStream out;
     private DataInputStream in;
-    private List<MessageCallback> callbacks;
+    private SocketBase socket;
 
     private volatile boolean running = true;
 
     public static final Logger LOG = LogManager.getLogger(SocketReaderWriter.class);
 
-    public SocketReaderWriter(List<MessageCallback> callbacks, DataInputStream in, DataOutputStream out) {
-        this.callbacks = callbacks;
+    public SocketReaderWriter(SocketBase socket, DataInputStream in, DataOutputStream out) {
+        this.socket = socket;
         this.in = in;
         this.out = out;
     }
@@ -47,7 +47,7 @@ public class SocketReaderWriter implements Runnable {
                 // create new message object, call the handler of the messageCallback
                 Message message = new Message(messageContent, messageType);
 
-                for(MessageCallback callback : this.callbacks) {
+                for(MessageCallback callback : this.socket.getMessageCallbacks()) {
                     callback.handleMessage(message);
                 }
 
@@ -55,8 +55,9 @@ public class SocketReaderWriter implements Runnable {
                 if (!running)
                     System.exit(0);
                 else {
-                    LOG.error(e.getMessage());
-                    System.exit(-1);
+                    this.running = false;
+                    LOG.warn("Client disconnected");
+                    this.socket.removeSocketWriter(this);
                 }
             }
         }

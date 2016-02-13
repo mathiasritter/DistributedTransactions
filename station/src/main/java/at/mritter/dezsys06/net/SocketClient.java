@@ -44,7 +44,7 @@ public class SocketClient extends SocketBase {
 
             // set io streams
             SocketReaderWriter socketReaderWriter = new SocketReaderWriter(
-                    super.getMessageCallbacks(),
+                    this,
                     new DataInputStream(socket.getInputStream()),
                     new DataOutputStream(socket.getOutputStream())
             );

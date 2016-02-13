@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public enum MessageType {
 
-    CLIENT_CONNECTED('C'), NONE('N');
+    CLIENT_CONNECTED('E'), SQL_QUERY('Q'), DO_COMMIT('C'), DO_ABORT('A'), RESULT('R');
 
 
     private final char value;

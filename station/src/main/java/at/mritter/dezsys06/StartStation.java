@@ -38,7 +38,7 @@ public class StartStation {
         SocketBase socket = new SocketClient(ip, port);
 
         DBConnectionCreator connectionCreator = new MySQLConnectionCreator()
-                .setDatabase(line.getOptionValue('h'))
+                .setDatabase(line.getOptionValue('d'))
                 .setUser(line.getOptionValue('u'))
                 .setPassword(line.getOptionValue('p'));
 

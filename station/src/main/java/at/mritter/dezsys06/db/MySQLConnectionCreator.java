@@ -51,14 +51,15 @@ public class MySQLConnectionCreator extends DBConnectionCreator {
     private void createConnection() {
 
         //Connection-String speziell fuer MySQL
-        String connectionString = "jdbc:mysql://" + super.getHost() + "/" + super.getDatabase();
+        String connectionString = "jdbc:mysql://" + super.getHost() + "/" + super.getDatabase() + "?useSSL=false";
         try {
             //Neue Connection mittels Driver-Manager initialisieren
             this.connection = DriverManager.getConnection(connectionString, super.getUser(), super.getPassword());
             this.connection.setAutoCommit(false);
         } catch (SQLException e) {
             //Bei nicht erfolgreichem Verbindungsaufbau Fehler ausgeben und Programm verlasen
-            logger.error("Verbindung zu DB fehlgeschlagen. Angegebene Daten:");
+            logger.error(e.getMessage());
+            logger.error("Could not connect to database. Properties: ");
             logger.error("hostname: " + super.getHost());
             logger.error("database: " + super.getDatabase());
             logger.error("username: " + super.getUser());

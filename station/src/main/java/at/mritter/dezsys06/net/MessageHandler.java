@@ -7,7 +7,12 @@ import at.mritter.dezsys06.net.SocketBase;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-
+/**
+ * Handles incoming messages from sockets.
+ *
+ * @author Mathias Ritter
+ * @version 1.0
+ */
 public class MessageHandler implements MessageCallback {
 
     public static final Logger LOG = LogManager.getLogger(MessageHandler.class);
@@ -20,6 +25,9 @@ public class MessageHandler implements MessageCallback {
         this.sqlExecutor = sqlExecutor;
     }
 
+    /**
+     * @see MessageCallback#handleMessage(Message)
+     */
     @Override
     public void handleMessage(Message message) {
 

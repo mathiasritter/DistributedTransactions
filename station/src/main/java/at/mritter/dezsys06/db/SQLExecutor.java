@@ -6,6 +6,12 @@ import org.apache.logging.log4j.Logger;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * Executes sql statements and begins/ends transactions.
+ *
+ * @author Mathias Ritter
+ * @version 1.0
+ */
 public class SQLExecutor {
 
     private Connection connection;
@@ -15,6 +21,12 @@ public class SQLExecutor {
         this.connection = connection;
     }
 
+    /**
+     * Executes a given sql statement.
+     *
+     * @param sqlStatement The sql statement
+     * @return True if the statement has been executed successfully
+     */
     public boolean executeSQL(String sqlStatement) {
         LOG.info("Executing statement: " + sqlStatement);
         boolean success = false;
@@ -36,6 +48,12 @@ public class SQLExecutor {
         return success;
     }
 
+    /**
+     * Ends the current transaction with either commit or rollback.
+     *
+     * @param commit True if the current transaction should be committed.
+     * @return True if the current transaction has been ended successfully.
+     */
     public boolean endTransaction(boolean commit) {
         boolean success = false;
         try {

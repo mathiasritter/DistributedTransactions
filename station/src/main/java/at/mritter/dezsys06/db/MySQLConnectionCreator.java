@@ -10,9 +10,9 @@ import java.sql.SQLException;
 
 
 /**
- * Diese Klasse erweitert den DBConnectionCreator und implementiert die Fabrikmethode zum Erstellen einer Connection
+ * Creates a new connection to a mysql database.
  *
- * @author Ritter Mathias
+ * @author Mathias Ritter
  */
 public class MySQLConnectionCreator extends DBConnectionCreator {
 
@@ -20,7 +20,7 @@ public class MySQLConnectionCreator extends DBConnectionCreator {
     private Connection connection;
 
     /**
-     * Im Konstruktor wird der Treiber fuer JDBC geladen
+     * Load driver for mysql
      */
     public MySQLConnectionCreator() {
         try {
@@ -28,7 +28,7 @@ public class MySQLConnectionCreator extends DBConnectionCreator {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             //Falls nicht gefunden, Fehlermeldung ausgeben und Programm verlassen
-            logger.error("MySQL-Treiber fuer JDBC nicht gefunden.");
+            logger.error("Driver for MySQL not found.");
             logger.error(e.getMessage());
             System.exit(-1);
         }
@@ -45,8 +45,10 @@ public class MySQLConnectionCreator extends DBConnectionCreator {
         return this.connection;
     }
 
+    /**
+     * Creates a new database connection with autocommit set to false.
+     */
     private void createConnection() {
-
 
         //Connection-String speziell fuer MySQL
         String connectionString = "jdbc:mysql://" + super.getHost() + "/" + super.getDatabase();

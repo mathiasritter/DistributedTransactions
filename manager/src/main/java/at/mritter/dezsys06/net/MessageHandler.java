@@ -5,6 +5,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
+/**
+ * Handles both user input and incoming messages (from sockets)
+ *
+ * @author Mathias Ritter
+ * @version 1.0
+ */
 public class MessageHandler implements MessageCallback, InputProcessor {
 
 
@@ -29,6 +35,9 @@ public class MessageHandler implements MessageCallback, InputProcessor {
         this.checkForTimeout();
     }
 
+    /**
+     * @see MessageCallback#handleMessage(Message)
+     */
     @Override
     public void handleMessage(Message message) {
         LOG.info("Received " + message.getType());
@@ -57,6 +66,9 @@ public class MessageHandler implements MessageCallback, InputProcessor {
 
     }
 
+    /**
+     * Checks if timeout occurs
+     */
     private void checkForTimeout() {
         new Thread(() -> {
             while (true) {
@@ -73,6 +85,9 @@ public class MessageHandler implements MessageCallback, InputProcessor {
         }).start();
     }
 
+    /**
+     * Check all received responses
+     */
     private void checkResponses() {
         int timeoutResponses = this.requiredResponses - this.successResponses - this.failResponses;
         if (this.preparePhase) {
@@ -92,6 +107,9 @@ public class MessageHandler implements MessageCallback, InputProcessor {
         this.failResponses = 0;
     }
 
+    /**
+     * @see InputProcessor#processInput(String)
+     */
     @Override
     public void processInput(String input) {
 
@@ -105,8 +123,11 @@ public class MessageHandler implements MessageCallback, InputProcessor {
 
     }
 
+    /**
+     * @see InputProcessor#exitApplication()
+     */
     @Override
     public void exitApplication() {
-
+        System.exit(0);
     }
 }

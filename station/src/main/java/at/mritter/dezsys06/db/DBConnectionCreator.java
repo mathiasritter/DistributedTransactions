@@ -4,10 +4,9 @@ package at.mritter.dezsys06.db;
 import java.sql.Connection;
 
 /**
- * Abstrakte Klasse mit Fabrikmethode zum Erstellen einer neuen Connection zu einer DB.<br>
- * Beinhaelt alle erforderlichen Daten, die zum Verbindungsaufbau erforderlich sind.
+ * Class to get a new database connection. Parameters need to be set before getting the connection
  *
- * @author Ritter Mathias
+ * @author Mathias Ritter
  * @version 1.0
  */
 public abstract class DBConnectionCreator {
@@ -18,7 +17,7 @@ public abstract class DBConnectionCreator {
     private String password;
 
     /**
-     * Default-Werte im parameterlosen Konstruktor setzen
+     * Sets default values: host = localhost, user = system username, password = none.
      */
     public DBConnectionCreator() {
         host = "127.0.0.1";
@@ -26,19 +25,16 @@ public abstract class DBConnectionCreator {
         password = "";
     }
 
+    /**
+     * Get the database connection. Connection will be created if it has not been established yet.
+     */
     public abstract Connection getConnection();
 
     public String getHost() {
         return host;
     }
 
-    /**
-     * Setzen des Hostnames.
-     * Wird nur gesetzt, wenn dieser nicht null ist.
-     *
-     * @param host Hostname
-     * @return Das aktuelle Objekt (DBConnectionCreator)
-     */
+
     public DBConnectionCreator setHost(String host) {
         if (host != null)
             this.host = host;
@@ -49,13 +45,7 @@ public abstract class DBConnectionCreator {
         return database;
     }
 
-    /**
-     * Setzen des Datenbank-Namens.
-     * Wird nur gesetzt, wenn diese nicht null ist.
-     *
-     * @param database Datenbank
-     * @return Das aktuelle Objekt (DBConnectionCreator)
-     */
+
     public DBConnectionCreator setDatabase(String database) {
         if (database != null)
             this.database = database;
@@ -66,13 +56,7 @@ public abstract class DBConnectionCreator {
         return user;
     }
 
-    /**
-     * Setzen des Usernames.
-     * Wird nur gesetzt, wenn dieser nicht null ist.
-     *
-     * @param user Username
-     * @return Das aktuelle Objekt (DBConnectionCreator)
-     */
+
     public DBConnectionCreator setUser(String user) {
         if (user != null)
             this.user = user;
@@ -83,13 +67,6 @@ public abstract class DBConnectionCreator {
         return password;
     }
 
-    /**
-     * Setzen des Passworts.
-     * Wird nur gesetzt, wenn dieses nicht null ist-
-     *
-     * @param password Passwort
-     * @return Das aktuelle Objekt (DBConnectionCreator)
-     */
     public DBConnectionCreator setPassword(String password) {
         if (password != null)
             this.password = password;

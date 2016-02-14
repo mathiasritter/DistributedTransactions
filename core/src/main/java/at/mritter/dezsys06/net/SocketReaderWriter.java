@@ -7,8 +7,15 @@ import org.apache.logging.log4j.Logger;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.util.List;
 
+
+/**
+ * This class represents a writer and reader for a single connection over sockets.
+ * A server may use several instances to communicate with more than one client.
+ *
+ * @author Mathias Ritter
+ * @version 1.0
+ */
 public class SocketReaderWriter implements Runnable {
 
     private DataOutputStream out;
@@ -81,6 +88,9 @@ public class SocketReaderWriter implements Runnable {
         }
     }
 
+    /**
+     * Stops listening for new messages and closes connection.
+     */
     public void stop() {
         this.running = false;
         try {
